@@ -1,0 +1,14 @@
+.upload-container {
+  display: flex;
+  border: 1px solid skyblue;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.file-uploader {
+  margin: 10px;
+}
+
+.progress-bar {
+  margin-left: 10px;
+}

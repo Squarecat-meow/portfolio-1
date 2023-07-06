@@ -1,0 +1,36 @@
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: skyblue;
+  align-items: center;
+  display: flex;
+}
+.user-icon {
+  float: right;
+  margin-right: 20vw;
+  font-size: 48px;
+}
+.header-text {
+  margin: 10px 10px 10px 20vw;
+}
+
+.navigation {
+  width: 100%;
+  display: flex;
+}
+.navigation ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.navigation ul li {
+  padding: 15px;
+  transition: 0.2s;
+}
+
+.navigation ul li:hover {
+  background-color: rgb(93, 138, 156);
+}
