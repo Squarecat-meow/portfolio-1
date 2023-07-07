@@ -4,6 +4,7 @@ import Tracks from "./Tracks";
 
 import { database } from "../../config/firebase";
 import { get, ref } from "firebase/database";
+import { Empty } from "antd";
 
 const Home = () => {
   const [dataList, setDataList] = useState({});
@@ -18,9 +19,10 @@ const Home = () => {
       }
     });
   }, []);
-  console.log(dataList);
 
-  return <div>home</div>;
+  return (
+    <div>{dataList.length > 0 ? <Empty /> : <Tracks dbTree={dataList} />}</div>
+  );
 };
 
 export default Home;
