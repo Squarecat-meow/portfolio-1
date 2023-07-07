@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isUploading: false,
-  fileLocation: "",
-  coverLocation: "",
+  fileURL: "",
+  coverURL: "",
   folderName: "",
 };
 
@@ -11,25 +11,25 @@ const UploadSlice = createSlice({
   name: "upload",
   initialState,
   reducers: {
-    upFileLocation(state, action) {
-      state.fileLocation = action.payload;
+    upFileURL(state, action) {
+      state.fileURL = action.payload;
+    },
+    upCoverURL(state, action) {
+      state.coverURL = action.payload;
     },
     upState(state, action) {
       state.isUploading = action.payload;
     },
-    upFolder(state, action) {
-      state.folderName = action.payload;
-    },
-    upCover(state, action) {
-      state.coverLocation = action.payload;
-    },
     upReset() {
       return initialState;
+    },
+    upFolder(state, action) {
+      state.folderName = action.payload;
     },
   },
 });
 
-export const { upFileLocation, upState, upFolder, upCover, upReset } =
+export const { upFileURL, upState, upCoverURL, upFolder, upReset } =
   UploadSlice.actions;
 
 export default UploadSlice.reducer;

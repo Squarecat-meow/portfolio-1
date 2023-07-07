@@ -1,4 +1,4 @@
-import { listAll, ref } from "firebase/storage";
+import { ref } from "firebase/storage";
 import React from "react";
 import { storage } from "../../config/firebase";
 
@@ -25,12 +25,21 @@ const makeCoverlocation = (input) => {
 };
 
 const Tracks = ({ dbTree }) => {
+  const folderLocationArr = Object.keys(dbTree);
   const fileLocationArr = makeFilelocation(dbTree);
   const coverLocationArr = makeCoverlocation(dbTree);
 
+  console.log(folderLocationArr);
   console.log(coverLocationArr);
+  console.log(fileLocationArr);
 
-  return <div>Tracks</div>;
+  return (
+    <div>
+      {fileLocationArr.map((url, i) => (
+        <audio controls src={url} key={i} />
+      ))}
+    </div>
+  );
 };
 
 export default Tracks;

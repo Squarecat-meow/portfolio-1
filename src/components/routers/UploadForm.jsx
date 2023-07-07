@@ -22,10 +22,10 @@ import {
   formDesc,
 } from "../../modules/UploadFormSlice";
 
-import { upState, upCover, upReset } from "../../modules/UploadSlice";
+import { upState, upCoverURL, upReset } from "../../modules/UploadSlice";
 
 const UploadForm = () => {
-  const fileLocation = useSelector((state) => state.upload.fileLocation);
+  const fileLocation = useSelector((state) => state.upload.fileURL);
   const folderName = useSelector((state) => state.upload.folderName);
   const audioFileRef = ref(storage, fileLocation);
   const [coverFile, setCoverFile] = useState("");
@@ -52,7 +52,6 @@ const UploadForm = () => {
     const file = coverRef.current.files[0];
     const coverStorageRef = ref(storage, `${folderName}/${file.name}`);
     const uploadTask = uploadBytesResumable(coverStorageRef, file);
-    dispatch(upCover(`${folderName}/${file.name}`)); //DB에 커버 경로 올리는 dispatch
 
     uploadTask.on("state_changed", () => {
       setCoverLoading(true);
@@ -61,12 +60,13 @@ const UploadForm = () => {
     uploadTask.then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setCoverFile(url);
+        dispatch(upCoverURL(url));
       });
       setCoverLoading(false);
     });
   };
 
-  const coverLocation = useSelector((state) => state.upload.coverLocation);
+  const coverLocation = useSelector((state) => state.upload.coverURL);
 
   const onFinish = (values) => {
     dispatch(formTitle(values.title));

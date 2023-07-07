@@ -6,7 +6,7 @@ import { Progress, Button } from "antd";
 
 //firebase imports
 import { storage } from "../../config/firebase";
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 //css imports
 import "./UploadComp.css";
@@ -19,7 +19,7 @@ import UploadForm from "./UploadForm";
 import { motion } from "framer-motion";
 
 //redux imports
-import { upFileLocation, upState, upFolder } from "../../modules/UploadSlice";
+import { upFileURL, upFolder, upState } from "../../modules/UploadSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 //etc imports
@@ -37,11 +37,10 @@ const UploadComp = () => {
     const fileName = file[0].name;
 
     const folderName = uuidv4();
+    const uploadFileLocation = `${folderName}/${fileName}`;
     dispatch(upFolder(folderName));
 
-    const uploadFileLocation = `${folderName}/${fileName}`;
     const storageRef = ref(storage, uploadFileLocation);
-    dispatch(upFileLocation(uploadFileLocation));
     const uploadTask = uploadBytesResumable(storageRef, file[0]);
 
     uploadTask.on("state_changed", (snapshot) => {
@@ -50,6 +49,12 @@ const UploadComp = () => {
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       );
       setUpPercent(progress);
+    });
+
+    uploadTask.then(() => {
+      getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+        dispatch(upFileURL(url));
+      });
     });
   };
 
