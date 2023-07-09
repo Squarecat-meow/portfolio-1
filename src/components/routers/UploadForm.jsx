@@ -15,38 +15,25 @@ import { set, ref as dbRef } from "firebase/database";
 import "./UploadForm.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  formTitle,
-  formGenre,
-  formTag,
-  formDesc,
-} from "../../modules/UploadFormSlice";
 
 import { upState, upCoverURL, upReset } from "../../modules/UploadSlice";
 
 const UploadForm = () => {
   const fileLocation = useSelector((state) => state.upload.fileURL);
   const folderName = useSelector((state) => state.upload.folderName);
+  const storageLocation = useSelector((state) => state.upload.storageLocation);
   const audioFileRef = ref(storage, fileLocation);
+
+  /*   const writeFormTitle = useSelector((state) => state.form.title);
+  const writeFormGenre = useSelector((state) => state.form.genre);
+  const writeFormTag = useSelector((state) => state.form.additionalTag);
+  const writeFormDesc = useSelector((state) => state.form.description); */
+
   const [coverFile, setCoverFile] = useState("");
   const [coverLoading, setCoverLoading] = useState("");
   const coverRef = useRef();
 
   const dispatch = useDispatch();
-
-  const writeFormTitle = useSelector((state) => state.form.title);
-  const writeFormGenre = useSelector((state) => state.form.genre);
-  const writeFormTag = useSelector((state) => state.form.additionalTag);
-  const writeFormDesc = useSelector((state) => state.form.description);
-
-  const writeMetadata = {
-    customMetadata: {
-      Title: writeFormTitle,
-      Genre: writeFormGenre,
-      AdditionalTag: writeFormTag,
-      Description: writeFormDesc,
-    },
-  };
 
   const handleCoverUpload = () => {
     const file = coverRef.current.files[0];
@@ -69,18 +56,25 @@ const UploadForm = () => {
   const coverLocation = useSelector((state) => state.upload.coverURL);
 
   const onFinish = (values) => {
-    dispatch(formTitle(values.title));
-    dispatch(formGenre(values.genre));
-    dispatch(formTag(values.tags));
-    dispatch(formDesc(values.desc));
+    const writeMetadata = {
+      customMetadata: {
+        Title: values.title,
+        Genre: values.genre,
+        AdditionalTag: values.AdditiionalTag,
+        Description: values.Description,
+      },
+    };
 
-    updateMetadata(audioFileRef, writeMetadata);
+    updateMetadata(audioFileRef, writeMetadata).then((metadata) => {
+      console.log("Wrote Metadata:", metadata.customMetadata);
+    });
 
     const folderRef = dbRef(database, folderName);
 
     set(folderRef, {
       fileLocation: { fileLocation },
       coverLocation: { coverLocation },
+      storageLocation: { storageLocation },
     });
 
     dispatch(upState(false));

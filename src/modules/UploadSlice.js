@@ -5,6 +5,7 @@ const initialState = {
   fileURL: "",
   coverURL: "",
   folderName: "",
+  storageLocation: "",
 };
 
 const UploadSlice = createSlice({
@@ -26,10 +27,13 @@ const UploadSlice = createSlice({
     upFolder(state, action) {
       state.folderName = action.payload;
     },
+    upStorage(state, action) {
+      state.storageLocation = action.payload;
+    },
   },
 });
 
-export const { upFileURL, upState, upCoverURL, upFolder, upReset } =
+export const { upFileURL, upState, upCoverURL, upFolder, upStorage, upReset } =
   UploadSlice.actions;
 
 export default UploadSlice.reducer;

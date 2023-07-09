@@ -1,0 +1,13 @@
+.track-container {
+  display: flex;
+}
+
+.track-row {
+  flex-direction: row;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.track-column {
+  flex-direction: column;
+}

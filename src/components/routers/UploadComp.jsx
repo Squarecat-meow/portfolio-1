@@ -19,11 +19,16 @@ import UploadForm from "./UploadForm";
 import { motion } from "framer-motion";
 
 //redux imports
-import { upFileURL, upFolder, upState } from "../../modules/UploadSlice";
+import {
+  upFileURL,
+  upStorage,
+  upState,
+  upFolder,
+} from "../../modules/UploadSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 //etc imports
-import { v4 as uuidv4 } from "uuid";
+import { v1 as uuidv1 } from "uuid";
 
 const UploadComp = () => {
   //const [uploading, setUploading] = useState(false);
@@ -36,9 +41,10 @@ const UploadComp = () => {
     const file = e.target.files;
     const fileName = file[0].name;
 
-    const folderName = uuidv4();
+    const folderName = uuidv1();
     const uploadFileLocation = `${folderName}/${fileName}`;
     dispatch(upFolder(folderName));
+    dispatch(upStorage(uploadFileLocation));
 
     const storageRef = ref(storage, uploadFileLocation);
     const uploadTask = uploadBytesResumable(storageRef, file[0]);

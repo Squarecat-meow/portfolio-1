@@ -7,6 +7,7 @@ import { get, ref } from "firebase/database";
 import { Empty } from "antd";
 
 const Home = () => {
+  const [isDataEmpty, setIsDataEmpty] = useState(true);
   const [dataList, setDataList] = useState({});
 
   useEffect(() => {
@@ -14,15 +15,14 @@ const Home = () => {
     get(dbRef).then((snapshot) => {
       if (snapshot.exists()) {
         setDataList(snapshot.val());
+        setIsDataEmpty(false);
       } else {
         console.log("No Data");
       }
     });
   }, []);
 
-  return (
-    <div>{dataList.length > 0 ? <Empty /> : <Tracks dbTree={dataList} />}</div>
-  );
+  return <div>{isDataEmpty ? <Empty /> : <Tracks dbList={dataList} />}</div>;
 };
 
 export default Home;
