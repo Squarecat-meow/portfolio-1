@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import UploadSlice from "./UploadSlice";
-import UploadFormSlice from "./UploadFormSlice";
+import UploadSuccessSlice from "./UploadSuccessSlice";
 
 const store = configureStore({
   reducer: {
     upload: UploadSlice,
-    form: UploadFormSlice,
+    uploadSuccess: UploadSuccessSlice,
   },
 });
 

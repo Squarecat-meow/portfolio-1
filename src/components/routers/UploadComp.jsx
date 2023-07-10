@@ -33,6 +33,7 @@ import { v1 as uuidv1 } from "uuid";
 const UploadComp = () => {
   //const [uploading, setUploading] = useState(false);
   const [upPercent, setUpPercent] = useState(0);
+  const [showFileName, setShowFileName] = useState("");
   const buttonRef = useRef();
   const dispatch = useDispatch();
   const uploading = useSelector((state) => state.upload.isUploading);
@@ -40,6 +41,7 @@ const UploadComp = () => {
   const handleUpload = (e) => {
     const file = e.target.files;
     const fileName = file[0].name;
+    setShowFileName(fileName);
 
     const folderName = uuidv1();
     const uploadFileLocation = `${folderName}/${fileName}`;
@@ -83,6 +85,15 @@ const UploadComp = () => {
           style={{ display: "none" }}
           onChange={handleUpload}
         />
+        <span
+          style={{
+            marginLeft: "10px",
+            marginTop: "10px",
+            display: uploading ? "block" : "none",
+          }}
+        >
+          {showFileName}
+        </span>
         <Progress
           percent={upPercent}
           style={{ display: uploading ? "block" : "none" }}

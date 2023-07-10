@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isUploading: false,
+  isUploadSuccess: false,
   fileURL: "",
   coverURL: "",
   folderName: "",
@@ -30,10 +31,20 @@ const UploadSlice = createSlice({
     upStorage(state, action) {
       state.storageLocation = action.payload;
     },
+    upSuccess(state, action) {
+      state.isUploadSuccess = action.payload;
+    },
   },
 });
 
-export const { upFileURL, upState, upCoverURL, upFolder, upStorage, upReset } =
-  UploadSlice.actions;
+export const {
+  upFileURL,
+  upState,
+  upCoverURL,
+  upFolder,
+  upStorage,
+  upReset,
+  upSuccess,
+} = UploadSlice.actions;
 
 export default UploadSlice.reducer;

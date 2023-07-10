@@ -4,11 +4,15 @@ import Tracks from "./Tracks";
 
 import { database } from "../../config/firebase";
 import { get, ref } from "firebase/database";
-import { Empty } from "antd";
+import { Empty, notification } from "antd";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [isDataEmpty, setIsDataEmpty] = useState(true);
   const [dataList, setDataList] = useState({});
+  const uploadSuccess = useSelector(
+    (state) => state.uploadSuccess.isUploadSuccess
+  );
 
   useEffect(() => {
     const dbRef = ref(database);
@@ -20,9 +24,21 @@ const Home = () => {
         console.log("No Data");
       }
     });
+
+    if (uploadSuccess === true) {
+      notification.success({
+        message: "Upload Successful",
+        placement: "topLeft",
+        duration: "3",
+      });
+    }
   }, []);
 
-  return <div>{isDataEmpty ? <Empty /> : <Tracks dbList={dataList} />}</div>;
+  return (
+    <div>
+      <div>{isDataEmpty ? <Empty /> : <Tracks dbList={dataList} />}</div>
+    </div>
+  );
 };
 
 export default Home;

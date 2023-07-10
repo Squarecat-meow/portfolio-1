@@ -17,6 +17,8 @@ import "./UploadForm.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import { upState, upCoverURL, upReset } from "../../modules/UploadSlice";
+import { upSuccess } from "../../modules/UploadSuccessSlice";
+import { useNavigate } from "react-router-dom";
 
 const UploadForm = () => {
   const fileLocation = useSelector((state) => state.upload.fileURL);
@@ -24,16 +26,12 @@ const UploadForm = () => {
   const storageLocation = useSelector((state) => state.upload.storageLocation);
   const audioFileRef = ref(storage, fileLocation);
 
-  /*   const writeFormTitle = useSelector((state) => state.form.title);
-  const writeFormGenre = useSelector((state) => state.form.genre);
-  const writeFormTag = useSelector((state) => state.form.additionalTag);
-  const writeFormDesc = useSelector((state) => state.form.description); */
-
   const [coverFile, setCoverFile] = useState("");
   const [coverLoading, setCoverLoading] = useState("");
   const coverRef = useRef();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleCoverUpload = () => {
     const file = coverRef.current.files[0];
@@ -79,6 +77,12 @@ const UploadForm = () => {
 
     dispatch(upState(false));
     dispatch(upReset());
+
+    setTimeout(() => {
+      dispatch(upSuccess(false));
+    }, 1000);
+
+    navigate("/", { replace: true });
   };
 
   return (
