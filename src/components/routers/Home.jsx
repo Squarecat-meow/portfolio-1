@@ -24,7 +24,13 @@ const Home = () => {
         console.log("No Data");
       }
     });
+  }, []);
 
+  useEffect(() => {
+    openNotification();
+  });
+
+  const openNotification = () => {
     if (uploadSuccess === true) {
       notification.success({
         message: "Upload Successful",
@@ -32,7 +38,7 @@ const Home = () => {
         duration: "3",
       });
     }
-  }, []);
+  };
 
   return (
     <div>

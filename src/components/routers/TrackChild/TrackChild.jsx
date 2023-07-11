@@ -14,7 +14,7 @@ const TrackChild = ({ audioFile, coverFile, storageLocation }) => {
     getMetadata(fileRef).then((metadata) => {
       setMetadataState(metadata.customMetadata);
     });
-  });
+  }, [fileRef]);
 
   return (
     <div className="track-container">

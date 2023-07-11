@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-import { FaUserCircle } from "react-icons/fa";
+import LoginIcon from "./Login/LoginIcon";
 
 const Header = () => {
   return (
@@ -17,7 +17,9 @@ const Header = () => {
           </Link>
         </ul>
       </nav>
-      <FaUserCircle className="user-icon" />
+      <div className="user-icon">
+        <LoginIcon />
+      </div>
     </div>
   );
 };
