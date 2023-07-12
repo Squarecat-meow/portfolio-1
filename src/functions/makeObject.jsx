@@ -8,6 +8,7 @@ const makeObject = (dbList) => {
     let coverLocationObj = Object.assign(inputValue[i].coverLocation);
     let storageLocationObj = Object.assign(inputValue[i].storageLocation);
     let combinedObj = Object.assign(
+      {},
       fileLocationObj,
       coverLocationObj,
       storageLocationObj

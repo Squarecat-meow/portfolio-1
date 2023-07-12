@@ -4,6 +4,7 @@ import { ref, getMetadata } from "firebase/storage";
 import { storage } from "../../../config/firebase";
 
 import "./TrackChild.css";
+import AudioPlayer from "./AudioPlayer/AudioPlayer";
 
 const TrackChild = ({ audioFile, coverFile, storageLocation }) => {
   const [metadataState, setMetadataState] = useState("");
@@ -14,7 +15,7 @@ const TrackChild = ({ audioFile, coverFile, storageLocation }) => {
     getMetadata(fileRef).then((metadata) => {
       setMetadataState(metadata.customMetadata);
     });
-  }, [fileRef]);
+  }, []);
 
   return (
     <div className="track-container">

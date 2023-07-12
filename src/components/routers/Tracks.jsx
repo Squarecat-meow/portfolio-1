@@ -5,7 +5,9 @@ import "./Tracks.css";
 import makeObject from "../../functions/makeObject";
 
 const Tracks = ({ dbList }) => {
-  const fileObject = makeObject(dbList);
+  const fileObject = makeObject(dbList[0]);
+
+  console.log(fileObject);
 
   return (
     <div>

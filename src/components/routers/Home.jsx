@@ -5,20 +5,24 @@ import Tracks from "./Tracks";
 import { database } from "../../config/firebase";
 import { get, ref } from "firebase/database";
 import { Empty, notification } from "antd";
-import { useSelector } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
+import { upDatalist } from "../../modules/DatalistSlice";
 
 const Home = () => {
   const [isDataEmpty, setIsDataEmpty] = useState(true);
-  const [dataList, setDataList] = useState({});
+  //const [dataList, setDataList] = useState({});
   const uploadSuccess = useSelector(
     (state) => state.uploadSuccess.isUploadSuccess
   );
+  const dataList = useSelector((state) => state.datalist);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const dbRef = ref(database);
     get(dbRef).then((snapshot) => {
       if (snapshot.exists()) {
-        setDataList(snapshot.val());
+        dispatch(upDatalist(snapshot.val()));
         setIsDataEmpty(false);
       } else {
         console.log("No Data");
