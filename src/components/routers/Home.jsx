@@ -45,7 +45,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "white", height: "92vh" }}>
       <div>{isDataEmpty ? <Empty /> : <Tracks dbList={dataList} />}</div>
     </div>
   );

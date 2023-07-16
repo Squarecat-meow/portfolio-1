@@ -26,10 +26,12 @@ const TrackChild = ({ audioFile, coverFile, storageLocation }) => {
           alt="Cover File"
         />
       </div>
-      <div className="track-text-container">
-        <h1 className="track-row">{metadataState.Title}</h1>
-        <h4 className="track-row">{metadataState.Genre}</h4>
-        <audio style={{ marginLeft: "10px" }} controls src={audioFile} />
+      <div className="track-data-container">
+        <div className="track-text-container">
+          <h1>{metadataState.Title}</h1>
+          <span className="genre">{metadataState.Genre}</span>
+        </div>
+        <AudioPlayer audioUrl={audioFile} />
       </div>
     </div>
   );

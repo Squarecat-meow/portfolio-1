@@ -1,13 +1,26 @@
 .track-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+.track-text-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.track-row {
-  flex-direction: row;
+.track-data-container {
+  width: 100%;
   margin-left: 10px;
-  margin-bottom: 10px;
 }
 
-.track-column {
-  flex-direction: column;
+.genre {
+  font-size: 14px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: lightgrey;
+  margin-left: auto;
+  border-radius: 5px;
+  align-items: center;
 }
