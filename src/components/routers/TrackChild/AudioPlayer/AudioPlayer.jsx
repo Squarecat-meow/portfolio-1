@@ -4,9 +4,12 @@ import { CaretRightOutlined, PauseOutlined } from "@ant-design/icons";
 import WaveSurfer from "wavesurfer.js";
 
 import "./AudioPlayer.css";
+import formatTimecode from "../../../../functions/formatTimecode";
 
 const AudioPlayer = ({ audioUrl }) => {
-  const [play, setPlay] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
   const containerRef = useRef(null);
   const wavesurfer = useRef(null);
 
@@ -25,27 +28,40 @@ const AudioPlayer = ({ audioUrl }) => {
         cursorColor: "transparent",
       });
       wavesurfer.current.load(audioUrl);
+      wavesurfer.current.on("ready", () => {
+        setDuration(formatTimecode(wavesurfer.current.getDuration()));
+      });
+      wavesurfer.current.on("audioprocess", () => {
+        setCurrentTime(formatTimecode(wavesurfer.current.getCurrentTime()));
+      });
+
+      wavesurfer.current.on("finish", () => {
+        setIsPlaying(false);
+        wavesurfer.current.stop();
+      });
     }
   }, []);
 
   const handlePlay = () => {
-    setPlay(!play);
+    setIsPlaying(!isPlaying);
     wavesurfer.current.playPause();
   };
 
   return (
     <div className="waveform">
       <div className="playpause-button" onClick={handlePlay}>
-        {play ? (
-          <PauseOutlined style={{ fontSize: "48px" }} />
+        {isPlaying ? (
+          <PauseOutlined style={{ fontSize: "36px" }} />
         ) : (
-          <CaretRightOutlined style={{ fontSize: "48px" }} />
+          <CaretRightOutlined style={{ fontSize: "36px" }} />
         )}
       </div>
       <div ref={containerRef} className="waveform-div">
         <div className="time-container">
-          <span className="start-time">asdf</span>
-          <span className="end-time">asdf</span>
+          <span className="start-time">
+            {currentTime === 0 ? "00:00" : currentTime}
+          </span>
+          <span className="end-time">{duration}</span>
         </div>
       </div>
     </div>

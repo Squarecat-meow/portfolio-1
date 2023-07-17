@@ -1,15 +1,37 @@
 .waveform {
-  display: flexbox;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.waveform-div {
+  margin-left: 10px;
+  width: inherit;
 }
 
 .playpause-button {
+  display: flex;
+  background-color: skyblue;
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
 }
 
 .time-container {
   display: flex;
-  margin-top: 3.5rem;
+  width: calc(60vw - 240px);
+  margin-top: 4em;
   position: absolute;
   z-index: 10;
-  border: 1px solid red;
   justify-content: space-between;
+}
+
+.time-container > span {
+  background-color: rgba(211, 211, 211, 0.7);
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 3px;
 }
