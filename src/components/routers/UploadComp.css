@@ -1,6 +1,7 @@
 .upload-container {
   display: flex;
   border: 1px solid skyblue;
+  margin-top: 10px;
   justify-content: center;
   flex-direction: column;
 }
