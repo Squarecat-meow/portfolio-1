@@ -15,24 +15,21 @@ import { upLogin } from "../../../../modules/UserLoginSlice";
 import "./LoginModal.css";
 import { useDispatch } from "react-redux";
 
-import { AnimatePresence, motion } from "framer-motion";
-
 const LoginModal = ({ setModal }) => {
   const [loginInfo, setLoginInfo] = useState([]);
+  const provider = new GoogleAuthProvider();
   const dispatch = useDispatch();
 
   const handleGoogleLogin = () => {
-    const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((result) => {
-      setLoginInfo([
-        {
+      dispatch(
+        upLogin({
           displayName: result.user.displayName,
           photoURL: result.user.photoURL,
           accessToken: result.user.accessToken,
-        },
-      ]);
+        })
+      );
     });
-    console.log(loginInfo);
   };
 
   return (

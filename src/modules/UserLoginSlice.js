@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
+const initialState = "";
 
 const UserLoginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
     upLogin(state, action) {
-      state.push(action.payload);
+      return (state = action.payload);
     },
   },
 });
