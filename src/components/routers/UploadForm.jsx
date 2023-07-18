@@ -82,7 +82,7 @@ const UploadForm = () => {
       dispatch(upSuccess(false));
     }, 1000);
 
-    navigate("/", { replace: true });
+    navigate("/", { replace: false });
   };
 
   return (

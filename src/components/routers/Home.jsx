@@ -28,7 +28,7 @@ const Home = () => {
         console.log("No Data");
       }
     });
-  }, []);
+  });
 
   useEffect(() => {
     openNotification();

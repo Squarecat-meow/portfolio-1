@@ -15,6 +15,7 @@ const Tracks = ({ dbList }) => {
             audioFile={file.fileLocation}
             coverFile={file.coverLocation}
             storageLocation={file.storageLocation}
+            trackKey={i}
           />
         </div>
       ))}
