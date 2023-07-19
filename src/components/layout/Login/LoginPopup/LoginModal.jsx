@@ -7,7 +7,11 @@ import {
   CloseOutlined,
 } from "@ant-design/icons";
 
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+} from "firebase/auth";
 import { auth } from "../../../../config/firebase";
 
 import { upLogin } from "../../../../modules/UserLoginSlice";
@@ -16,12 +20,24 @@ import "./LoginModal.css";
 import { useDispatch } from "react-redux";
 
 const LoginModal = ({ setModal }) => {
-  const [loginInfo, setLoginInfo] = useState([]);
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
   const dispatch = useDispatch();
 
   const handleGoogleLogin = () => {
-    signInWithPopup(auth, provider).then((result) => {
+    signInWithPopup(auth, googleProvider).then((result) => {
+      dispatch(
+        upLogin({
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+          accessToken: result.user.accessToken,
+        })
+      );
+    });
+  };
+
+  const handleGithubLogin = () => {
+    signInWithPopup(auth, githubProvider).then((result) => {
       dispatch(
         upLogin({
           displayName: result.user.displayName,
@@ -53,7 +69,12 @@ const LoginModal = ({ setModal }) => {
           >
             Log In With Google
           </Button>
-          <Button type="primary" icon={<GithubOutlined />} size="large">
+          <Button
+            type="primary"
+            icon={<GithubOutlined />}
+            size="large"
+            onClick={handleGithubLogin}
+          >
             Log In With Github
           </Button>
         </div>
