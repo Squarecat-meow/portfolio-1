@@ -67,7 +67,7 @@ const UploadForm = () => {
       console.log("Wrote Metadata:", metadata.customMetadata);
     });
 
-    const folderRef = dbRef(database, folderName);
+    const folderRef = dbRef(database, `audio/${folderName}`);
 
     set(folderRef, {
       fileLocation: { fileLocation },

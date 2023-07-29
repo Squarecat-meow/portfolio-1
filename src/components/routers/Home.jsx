@@ -19,7 +19,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const dbRef = ref(database);
+    const dbRef = ref(database, "audio");
     get(dbRef).then((snapshot) => {
       if (snapshot.exists()) {
         dispatch(upDatalist(snapshot.val()));
